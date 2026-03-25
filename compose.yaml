@@ -76,9 +76,9 @@ services:
 
   # ollama service for local LLMs
   ollama:
-    # image: ollama/ollama:latest
+    image: ollama/ollama:latest
     # per amd gpu support
-    image: ollama/ollama:rocm
+    # image: ollama/ollama:rocm
     container_name: ollama
     env_file:
       - ./ollama/.env
@@ -86,6 +86,7 @@ services:
       - ./ollama/data/:/root/.ollama
       - ./ollama/models:/ollama-models
     restart: unless-stopped
+
     # deploy:
     #   resources:
     #     reservations:
@@ -94,20 +95,30 @@ services:
     #           count: all
     #           capabilities: [gpu]
 
+    # Uncomment below to run on GPU support
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+
     # for amd gpu support
-    devices:
+    # devices:
       # per linux AMD GPU compute support
       # - /dev/kfd
       # - /dev/dri
       # per windows AMD GPU support
-      - /dev/dxg          
+      # - /dev/dxg          
     group_add:
       - video
     # CAMBIO 3: Aggiungi variabili d'ambiente per ottimizzare ROCm
-    environment:
-      - HSA_OVERRIDE_GFX_VERSION=10.3.0   # Necessario per RX 6400 (RDNA1)
-      - ROCR_VISIBLE_DEVICES=0             # Seleziona la prima GPU
-      - OLLAMA_HOST=0.0.0.0           # Ascolta su tutte le interfacce di rete
+    # environment:
+    #   - HSA_OVERRIDE_GFX_VERSION=10.3.0   # Necessario per RX 6400 (RDNA1)
+    #   - ROCR_VISIBLE_DEVICES=0             # Seleziona la prima GPU
+    #   - OLLAMA_HOST=0.0.0.0           # Ascolta su tutte le interfacce di rete
 
   # paperless-ai service
   paperless-ai:
