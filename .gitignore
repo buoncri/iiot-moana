@@ -1,0 +1,73 @@
+# .gitignore per paperless-stack
+# Ignora dati runtime, cache, database e file generati dalle componenti dello stack
+
+# Paperless
+paperless-gpt/prompts/**/*.tmpl
+paperless/media/documents/**
+
+paperless/media/documents/
+paperless/data/index/**
+paperless/data/index/
+paperless/data/migration_lock
+paperless/data/.index_version
+paperless/data/**
+paperless/data/
+
+# Paperless-AI
+paperless-ai/data/**
+paperless-ai/.env
+
+# Paperless-GPT
+paperless-gpt/prompts/
+
+# Gotenberg
+gotenberg/
+
+# Open WebUI
+open-webui/data/**
+# open-webui/data/cache/**
+# open-webui/data/cache/
+
+# Redis
+redis/data/**
+
+# Postgres
+postgres/data/**
+
+# Tika
+tika/data/
+
+dozzle/data/**
+dozzle/data/
+
+ollama/models/**
+# Ollama
+paperless/data/index/**
+ollama/models/
+ollama/.env
+ollama/data/id_ed25519
+ollama/data/id_ed25519.pub
+
+# File temporanei e di sistema
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.log
+*.lock
+*.tmp
+.env
+
+
+# file di configurazione e documentazione
+!compose.yaml
+!README.md
+!paperless-stack-italian.agent.md
+
+# tutto tranne la configurazione e i file di servizio
+!*/
+!*/.gitkeep
+
+# Ignora file rimasti
+paperless-ai/data/system_state.json
+open-webui/data/cache/
